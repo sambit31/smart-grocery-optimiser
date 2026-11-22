@@ -1,21 +1,17 @@
-# Secrets
-.env
-*.env.local
+# Python virtual environments
+.venv/
+venv/
+**/.venv/
+**/venv/
 
-# Python
-backend/.venv/
-backend/venv/
+# Python cache
 __pycache__/
-*.pyc
-.pytest_cache/
-*.db
+*.py[cod]
 
-# Node
-frontend/node_modules/
-frontend/dist/
+# Node dependencies
+node_modules/
 
-# Editors / OS
-.vscode/*
-!.vscode/extensions.json
-.DS_Store
-Thumbs.db
+# Environment secrets
+.env
+.env.*
+!.env.example
