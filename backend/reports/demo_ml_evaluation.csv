@@ -1,0 +1,19 @@
+﻿item_name,unit,prediction_source,selected_model,selection_reason,periods_used,historical_consumption,predicted_consumption,current_stock,recommended_purchase_quantity,data_sufficiency,sma_mae,sma_rmse,wma_mae,wma_rmse,lr_mae,lr_rmse
+Banana,piece,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,29.000 | 39.000 | 52.000,40.0,6.0,34.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Basmati Rice,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,5.182 | 7.510 | 8.998,7.23,3.0,4.3,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Biscuits,packet,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,6.000 | 8.000 | 10.000,8.0,2.0,6.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Desi Ghee,litre,user_estimate,not_applicable,"No consumption history yet. Using your initial estimate of 0.5 litre/month, scaled to 30 days. Need 0.5 - stock 0 -> buy 0.5 litre.",0,,0.5,0.0,0.5,estimate,N/A,N/A,N/A,N/A,N/A,N/A
+Dishwash Liquid,ml,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,347.000 | 426.000 | 592.000,455.0,250.0,205.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Garam Masala,packet,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,1.000 | 1.000 | 1.000,1.0,0.0,1.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Jaggery,kg,no_data,not_applicable,No consumption history or initial estimate. Record consumption or add an estimate to get a prediction.,0,,0.0,0.0,0.0,insufficient,N/A,N/A,N/A,N/A,N/A,N/A
+Milk,litre,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,20.367 | 27.994 | 36.333,28.231,2.0,26.3,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Moong Dal,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,1.056 | 1.391 | 1.734,1.394,1.0,0.4,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Mustard Oil,litre,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,2.122 | 2.902 | 3.313,2.779,1.0,1.8,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Namkeen,packet,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,4.000 | 4.000 | 6.000,4.667,1.0,4.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Onion,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,3.819 | 4.687 | 5.781,4.762,1.5,3.3,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Paneer,g,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,583.000 | 778.000 | 937.000,766.0,0.0,766.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Potato,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,4.191 | 5.396 | 7.437,5.675,2.0,3.7,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Tomato,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,3.077 | 3.720 | 4.733,3.843,0.5,3.4,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Toor Dal,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,1.924 | 2.274 | 2.722,2.307,0.5,1.9,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Turmeric Powder,packet,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,1.000 | 1.000 | 1.000,1.0,1.0,0.0,limited,N/A,N/A,N/A,N/A,N/A,N/A
+Wheat Atta,kg,consumption_history,simple_moving_average,Insufficient validation data; using SMA.,3,6.923 | 9.256 | 12.289,9.489,4.0,5.5,limited,N/A,N/A,N/A,N/A,N/A,N/A

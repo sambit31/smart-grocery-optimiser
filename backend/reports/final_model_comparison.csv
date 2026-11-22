@@ -1,0 +1,9 @@
+﻿item_name,selected_model,best_model_by_mae,average_consumption,best_model_mae,best_model_normalized_mae_percent,improvement_over_sma_percent,simple_moving_average_mae,weighted_moving_average_mae,linear_regression_mae
+Banana,linear_regression,Linear Regression,30.25,0.4173,1.38,94.43,7.4934,5.6667,0.4173
+Milk,linear_regression,Linear Regression,23.0833,1.1912,5.16,65.69,3.4719,2.5926,1.1912
+Rice,linear_regression,Linear Regression,10.0,1.02,10.2,44.67,1.8435,1.4259,1.02
+Potato,linear_regression,Linear Regression,8.5,1.02,12.0,52.7,2.1565,1.6111,1.02
+Onion,simple_moving_average,SMA,11.8333,1.5619,13.2,0.0,1.5619,1.5758,1.7817
+Cooking Oil,linear_regression,Linear Regression,2.95,0.0339,1.15,94.94,0.67,0.5,0.0339
+Biscuits,linear_regression,Linear Regression,6.6667,0.8193,12.29,37.99,1.3213,1.037,0.8193
+Dishwash Liquid,linear_regression,Linear Regression,355.8333,14.1258,3.97,65.03,40.3981,30.9259,14.1258

@@ -1,0 +1,9 @@
+﻿item_name,historical_periods,historical_consumption,selected_model,selection_reason,simple_moving_average_mae,simple_moving_average_rmse,weighted_moving_average_mae,weighted_moving_average_rmse,linear_regression_mae,linear_regression_rmse
+Banana,12,20 | 22 | 24 | 25 | 27 | 29 | 31 | 33 | 35 | 37 | 39 | 41,linear_regression,linear_regression improved MAE by at least 10% over SMA.,7.4934,7.9976,5.6667,6.0006,0.4173,0.4827
+Milk,12,18 | 20 | 19 | 22 | 21 | 24 | 23 | 25 | 26 | 24 | 27 | 28,linear_regression,linear_regression improved MAE by at least 10% over SMA.,3.4719,3.7128,2.5926,2.8585,1.1912,1.4388
+Rice,12,8 | 7 | 9 | 8 | 10 | 9 | 11 | 10 | 12 | 11 | 13 | 12,linear_regression,linear_regression improved MAE by at least 10% over SMA.,1.8435,2.1267,1.4259,1.6974,1.02,1.0406
+Potato,12,5 | 7 | 6 | 8 | 7 | 9 | 8 | 10 | 9 | 11 | 10 | 12,linear_regression,linear_regression improved MAE by at least 10% over SMA.,2.1565,2.3831,1.6111,1.8719,1.02,1.0406
+Onion,12,10 | 12 | 9 | 11 | 13 | 10 | 12 | 14 | 11 | 13 | 15 | 12,simple_moving_average,SMA has the lowest validation error.,1.5619,1.9223,1.5758,1.8192,1.7817,1.9172
+Cooking Oil,12,2 | 2.2 | 2.4 | 2.5 | 2.7 | 2.9 | 3 | 3.2 | 3.4 | 3.5 | 3.7 | 3.9,linear_regression,linear_regression improved MAE by at least 10% over SMA.,0.67,0.7068,0.5,0.5239,0.0339,0.0461
+Biscuits,12,5 | 5 | 6 | 5 | 7 | 6 | 7 | 7 | 8 | 7 | 9 | 8,linear_regression,linear_regression improved MAE by at least 10% over SMA.,1.3213,1.5066,1.037,1.2324,0.8193,0.9209
+Dishwash Liquid,12,300 | 320 | 310 | 340 | 330 | 360 | 350 | 380 | 370 | 400 | 390 | 420,linear_regression,linear_regression improved MAE by at least 10% over SMA.,40.3981,43.8124,30.9259,34.0962,14.1258,14.3474

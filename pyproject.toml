@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-grocery-forecasting"
+version = "0.1.0"
+description = "Consumption forecasting algorithms for Smart Grocery Optimiser"
+requires-python = ">=3.10"
+dependencies = [
+    "scikit-learn>=1.5,<2"
+]
+
+[tool.setuptools.packages.find]
+include = ["ml*"]
+exclude = ["ml.tests*"]

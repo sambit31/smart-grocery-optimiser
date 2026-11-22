@@ -22,10 +22,13 @@ import ErrorState from '../components/common/ErrorState'
 import LoadingSpinner from '../components/common/LoadingSpinner'
 import PageHeader from '../components/common/PageHeader'
 import StatCard from '../components/common/StatCard'
+import AIShoppingAssistant from '../components/dashboard/AIShoppingAssistant'
 import SpendingChart from '../components/charts/SpendingChart'
+import AIInsights from '../components/dashboard/AIInsights'
 import { useApi } from '../hooks/useApi'
 import { formatCurrency } from '../utils/formatCurrency'
 import { formatDate, formatQuantity } from '../utils/formatQuantity'
+
 
 function Panel({ title, action, children }) {
   return (
@@ -81,6 +84,13 @@ export default function DashboardPage() {
           </button>
         }
       />
+      <div className="mb-6">
+  <AIInsights />
+</div>
+
+<div className="mb-6">
+  <AIShoppingAssistant />
+</div>
 
       {isNewUser && (
         <section className="card mb-6 p-5">

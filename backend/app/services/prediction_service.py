@@ -28,6 +28,11 @@ import pandas as pd
 from app.constants import DAYS_PER_PERIOD
 from app.models import Consumption
 from app.utils.numbers import round_qty, round_up_to_unit, to_decimal
+from ml.forecasting import (
+    SMA,
+    forecast_consumption,
+    select_best_model,
+)
 
 SOURCE_HISTORY = "consumption_history"
 SOURCE_ESTIMATE = "user_estimate"
@@ -80,40 +85,90 @@ def data_sufficiency(periods_used, history_periods):
 
 
 def predict_item(item, stock, consumption_records, reference_date, planning_days, history_periods):
-    """Predict one item's requirement for the planning period."""
+    """Predict one item's requirement using automatic model selection."""
+
     scale = Decimal(planning_days) / Decimal(DAYS_PER_PERIOD)
     totals = period_totals(consumption_records, reference_date, history_periods)
-    average = average_requirement(totals)
 
-    if average is not None:
+    if totals:
         source = SOURCE_HISTORY
-        predicted = round_qty(average * scale)
         periods_used = len(totals)
-        shown_totals = ", ".join(f"{t.normalize():f}" for t in reversed(totals))
-        reason = (
-            f"Average of {periods_used} recent 30-day period(s) [{shown_totals}] {item.unit} "
-            f"= {round_qty(average).normalize():f} {item.unit}/30 days, scaled to {planning_days} days."
+
+        # Backend totals are newest-to-oldest.
+        # ML models require oldest-to-newest.
+        history = [float(value) for value in reversed(totals)]
+
+        # Select the best model using chronological validation.
+        selection = select_best_model(history)
+        selected_model = selection["selected_model"]
+        selection_reason = selection["reason"]
+
+        # Calculate the forecast using the selected model.
+        try:
+            predicted_per_period = Decimal(
+                str(forecast_consumption(history, selected_model))
+            )
+        except (ValueError, ArithmeticError):
+            # Safe fallback if the selected model cannot forecast.
+            selected_model = SMA
+            predicted_per_period = Decimal(
+                str(forecast_consumption(history, SMA))
+            )
+            selection_reason = "Selected model failed; SMA fallback used."
+
+        predicted = round_qty(predicted_per_period * scale)
+
+        model_names = {
+            "simple_moving_average": "Simple Moving Average",
+            "weighted_moving_average": "Weighted Moving Average",
+            "linear_regression": "Linear Regression",
+        }
+        model_name = model_names.get(selected_model, selected_model)
+
+        shown_totals = ", ".join(
+            f"{value:g}" for value in history
         )
+
+        reason = (
+            f"{model_name} forecast using {periods_used} chronological "
+            f"30-day period(s) [{shown_totals}] {item.unit}. "
+            f"Model selection: {selection_reason} "
+            f"Forecast scaled to {planning_days} days."
+        )
+
     elif item.initial_monthly_estimate is not None:
         source = SOURCE_ESTIMATE
         predicted = round_qty(item.initial_monthly_estimate * scale)
         periods_used = 0
+
         reason = (
             f"No consumption history yet. Using your initial estimate of "
-            f"{item.initial_monthly_estimate.normalize():f} {item.unit}/month, scaled to {planning_days} days."
+            f"{item.initial_monthly_estimate.normalize():f} "
+            f"{item.unit}/month, scaled to {planning_days} days."
         )
+
     else:
         source = SOURCE_NONE
         predicted = Decimal("0")
         periods_used = 0
-        reason = "No consumption history or initial estimate. Record consumption or add an estimate to get a prediction."
+
+        reason = (
+            "No consumption history or initial estimate. "
+            "Record consumption or add an estimate to get a prediction."
+        )
 
     stock = to_decimal(stock)
     needed = recommended_quantity(predicted, stock)
-    # Packaged / indivisible units are rounded up to whole buying units.
+
+    # Keep existing packaged / indivisible unit rounding.
     needed = round_up_to_unit(needed, item.unit)
+
     if source != SOURCE_NONE:
-        reason += f" Need {predicted.normalize():f} − stock {stock.normalize():f} → buy {needed.normalize():f} {item.unit}."
+        reason += (
+            f" Need {predicted.normalize():f} "
+            f"- stock {stock.normalize():f} "
+            f"-> buy {needed.normalize():f} {item.unit}."
+        )
 
     return {
         "item_id": item.id,
@@ -122,8 +177,14 @@ def predict_item(item, stock, consumption_records, reference_date, planning_days
         "recommended_quantity": needed,
         "prediction_source": source,
         "periods_used": periods_used,
-        "data_sufficiency": data_sufficiency(periods_used, history_periods) if source == SOURCE_HISTORY else (
-            "estimate" if source == SOURCE_ESTIMATE else "insufficient"
+        "data_sufficiency": (
+            data_sufficiency(periods_used, history_periods)
+            if source == SOURCE_HISTORY
+            else (
+                "estimate"
+                if source == SOURCE_ESTIMATE
+                else "insufficient"
+            )
         ),
         "reason": reason,
     }
@@ -145,4 +206,7 @@ def load_consumption_records(household_id, item_id, reference_date, history_peri
 
 
 def prediction_method_label(history_periods):
-    return f"Simple moving average of last {history_periods} × 30-day consumption totals"
+    return (
+        f"Adaptive per-item forecasting (SMA/WMA/LR), "
+        f"last {history_periods} x 30-day periods"
+    )

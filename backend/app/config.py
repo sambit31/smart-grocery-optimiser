@@ -46,12 +46,14 @@ class Config:
 
     FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
 
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+    
     RATELIMIT_ENABLED = _bool_env("RATELIMIT_ENABLED", True)
     RATELIMIT_STORAGE_URI = "memory://"
     AUTH_RATE_LIMIT = os.getenv("AUTH_RATE_LIMIT", "10 per minute")
 
     # --- Business settings ---
-    PREDICTION_HISTORY_PERIODS = int(os.getenv("PREDICTION_HISTORY_PERIODS", "3"))
+    PREDICTION_HISTORY_PERIODS = int(os.getenv("PREDICTION_HISTORY_PERIODS", "12"))
 
     DEBUG = _bool_env("FLASK_DEBUG", False)
 
