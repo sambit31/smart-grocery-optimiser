@@ -1,16 +1,23 @@
 import os
+from pathlib import Path
+
 import pandas as pd
 import mysql.connector
+from dotenv import load_dotenv
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
-# Connect to your existing MySQL database
+# Load the existing ML environment file
+env_path = Path(__file__).resolve().parents[2] / "ml.env"
+load_dotenv(env_path)
+
+# Database connection
 conn = mysql.connector.connect(
-    host="localhost",
-    port=3306,
-    user="grocery_user",
-    password="[REDACTED]",
-    database="smart_grocery"
+    host=os.getenv("DB_HOST"),
+    port=int(os.getenv("DB_PORT", "3306")),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME")
 )
 
 # Read actual consumption history
