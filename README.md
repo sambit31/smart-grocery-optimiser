@@ -473,7 +473,7 @@ A suggested demonstration for a college project presentation or viva:
 
 ## 10. API Endpoint Summary
 
-All endpoints use the `/api` prefix.
+All API endpoints use the `/api` prefix.
 
 ### Authentication
 
@@ -488,50 +488,74 @@ All endpoints use the `/api` prefix.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET / POST / PUT | `/api/household` | Household management |
-| GET / POST | `/api/groceries` | List or create grocery items |
-| GET / PUT / DELETE | `/api/groceries/<id>` | Retrieve, update or delete a grocery item |
-| GET / POST | `/api/inventory` | Retrieve or create inventory records |
-| PUT | `/api/inventory/<id>` | Update inventory |
-| PATCH | `/api/inventory/<id>/quantity` | Adjust stock quantity |
+| GET | `/api/household` | Retrieve household |
+| POST | `/api/household` | Create household |
+| PUT | `/api/household` | Update household |
+| GET | `/api/meta/options` | Retrieve application options |
+| GET | `/api/groceries` | List grocery items |
+| POST | `/api/groceries` | Create grocery item |
+| GET | `/api/groceries/<item_id>` | Retrieve grocery item |
+| PUT | `/api/groceries/<item_id>` | Update grocery item |
+| DELETE | `/api/groceries/<item_id>` | Delete grocery item |
+
+### Inventory Management
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/inventory` | List inventory |
+| POST | `/api/inventory` | Add inventory |
+| PUT | `/api/inventory/<record_id>` | Update inventory |
+| PATCH | `/api/inventory/<record_id>/quantity` | Adjust inventory quantity |
 
 ### Purchases and Consumption
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET / POST | `/api/purchases` | Retrieve or record purchases |
-| GET / PUT / DELETE | `/api/purchases/<id>` | Manage purchase records |
-| GET / POST | `/api/consumption` | Retrieve or record consumption |
-| PUT / DELETE | `/api/consumption/<id>` | Update or delete consumption |
+| GET | `/api/purchases` | List purchases |
+| POST | `/api/purchases` | Record purchase |
+| GET | `/api/purchases/<purchase_id>` | Retrieve purchase |
+| PUT | `/api/purchases/<purchase_id>` | Update purchase |
+| DELETE | `/api/purchases/<purchase_id>` | Delete purchase |
+| GET | `/api/consumption` | List consumption records |
+| POST | `/api/consumption` | Record consumption |
+| PUT | `/api/consumption/<record_id>` | Update consumption |
+| DELETE | `/api/consumption/<record_id>` | Delete consumption |
 
-### Prediction and Budget
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/predictions/generate` | Generate a grocery prediction plan |
-| GET | `/api/predictions/latest` | Retrieve the latest plan |
-| GET | `/api/recommendations` | Retrieve saved plans |
-| POST | `/api/recommendations/<id>/optimise-budget` | Optimise a saved plan |
-| PATCH | `/api/recommendations/<id>/items/<line_id>` | Update a plan item |
-| POST | `/api/recommendations/<id>/items/<line_id>/mark-purchased` | Record a plan item as purchased |
-
-### Dashboard, Reports and AI
+### Prediction, Recommendations and Budget
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/api/dashboard/summary` | Dashboard information |
-| GET | `/api/reports/spending` | Spending reports |
-| GET | `/api/reports/consumption` | Consumption reports |
-| GET | `/api/reports/recommendations` | Recommendation history |
-| POST | `/api/ai/insights` | Generate AI household insights |
-| POST | `/api/ai/chat` | Ask the AI shopping assistant |
+| POST | `/api/predictions/generate` | Generate grocery prediction plan |
+| GET | `/api/predictions/latest` | Retrieve latest prediction |
+| GET | `/api/recommendations` | List saved recommendations |
+| GET | `/api/recommendations/<recommendation_id>` | Retrieve a recommendation |
+| POST | `/api/recommendations/<recommendation_id>/optimise-budget` | Optimise a shopping plan |
+| PATCH | `/api/recommendations/<recommendation_id>/items/<line_id>` | Update a recommendation item |
+| POST | `/api/recommendations/<recommendation_id>/items/<line_id>/mark-purchased` | Mark an item as purchased |
+
+### Dashboard and Reports
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/dashboard/summary` | Retrieve dashboard summary |
+| GET | `/api/reports/spending` | Retrieve spending report |
+| GET | `/api/reports/consumption` | Retrieve consumption report |
+| GET | `/api/reports/recommendations` | Retrieve recommendation history |
+
+### AI Features
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/ai/insights` | Generate household AI insights |
+| POST | `/api/ai/chat` | Chat with the AI shopping assistant |
 | POST | `/api/ai/recommendations` | Generate AI shopping recommendations |
 
 ### Feedback and Health
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET / POST | `/api/feedback` | Retrieve or submit feedback |
+| GET | `/api/feedback` | Retrieve feedback |
+| POST | `/api/feedback` | Submit feedback |
 | GET | `/api/health` | Check backend health |
 
 Authenticated endpoints require the appropriate authentication and CSRF protections. Household-scoped endpoints enforce household ownership.
@@ -553,7 +577,7 @@ python -m pytest -v
 The previously reported test suite completed with:
 
 ```text
-45 passed
+45 passed in 5.78s
 ```
 
 The tests cover areas including authentication, household ownership, grocery management, inventory, purchases, consumption, prediction calculations, budget optimisation, shopping plan operations and database transaction handling.
