@@ -1,4 +1,5 @@
 
+from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
@@ -35,6 +36,6 @@ print("Predicted consumption:", predictions.round(2))
 print("Mean Absolute Error:", round(error, 2))
 
 # Save the trained model
-joblib.dump(model, "rice_model.pkl")
+joblib.dump(model, Path(__file__).resolve().parents[1] / "models" / "rice_model.pkl")
 
 print("Model saved successfully!")

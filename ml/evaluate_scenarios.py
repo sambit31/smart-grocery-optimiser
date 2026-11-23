@@ -36,7 +36,7 @@ def load_consumption_history(file_path):
 
 
 def evaluate_scenarios():
-    files = sorted(ML_DIR.glob("*_consumption.csv"))
+    files = sorted((ML_DIR / "datasets").glob("*_consumption.csv"))
 
     for file_path in files:
         print("\n" + "=" * 60)

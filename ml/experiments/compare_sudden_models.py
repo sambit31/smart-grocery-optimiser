@@ -1,10 +1,11 @@
 
+from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
 # Load irregular sample data
-df = pd.read_csv("stable_consumption.csv")
+df = pd.read_csv(Path(__file__).resolve().parents[1] / "datasets" / "sudden_consumption.csv")
 
 results = []
 
@@ -34,7 +35,7 @@ for test_start in range(8, len(df)):
 
 result_df = pd.DataFrame(results)
 
-print("\nIRREGULAR CONSUMPTION RESULTS")
+print("\nSUDDEN CONSUMPTION RESULTS")
 print(result_df.round(2).to_string(index=False))
 
 linear_mae = mean_absolute_error(

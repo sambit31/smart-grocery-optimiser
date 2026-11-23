@@ -1,10 +1,11 @@
 
+from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
 # Load irregular sample data
-df = pd.read_csv("stable_consumption.csv")
+df = pd.read_csv(Path(__file__).resolve().parents[1] / "datasets" / "stable_consumption.csv")
 
 results = []
 

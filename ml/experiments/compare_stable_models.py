@@ -1,15 +1,16 @@
 
+from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
 # Load irregular sample data
-df = pd.read_csv("limited_consumption.csv")
+df = pd.read_csv(Path(__file__).resolve().parents[1] / "datasets" / "stable_consumption.csv")
 
 results = []
 
 # Test months 9 to 20 using earlier months for training
-for test_start in range(3, len(df)):
+for test_start in range(8, len(df)):
     train = df.iloc[:test_start]
     test = df.iloc[test_start:test_start + 1]
 
@@ -34,7 +35,7 @@ for test_start in range(3, len(df)):
 
 result_df = pd.DataFrame(results)
 
-print("\nLIMITED HISTORY RESULTS")
+print("\nIRREGULAR CONSUMPTION RESULTS")
 print(result_df.round(2).to_string(index=False))
 
 linear_mae = mean_absolute_error(

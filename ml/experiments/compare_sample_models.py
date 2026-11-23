@@ -1,10 +1,11 @@
 
+from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
 # Load sample data
-df = pd.read_csv("sample_consumption.csv")
+df = pd.read_csv(Path(__file__).resolve().parents[1] / "datasets" / "sample_consumption.csv")
 
 # Test each model on multiple prediction periods
 results = []

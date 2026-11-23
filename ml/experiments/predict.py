@@ -1,9 +1,10 @@
 
+from pathlib import Path
 import joblib
 import pandas as pd
 
 # Load the trained model
-model = joblib.load("rice_model.pkl")
+model = joblib.load(Path(__file__).resolve().parents[1] / "models" / "rice_model.pkl")
 
 # Predict consumption for month 11
 new_data = pd.DataFrame({"month": [11]})
