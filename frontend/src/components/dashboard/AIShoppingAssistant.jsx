@@ -25,11 +25,18 @@ export default function AIShoppingAssistant() {
     if (!userQuestion || loading) return
 
     const previousMessages = messages
-    const history = previousMessages.slice(-10).map(({ role, content }) => ({
-      role,
-      content,
-    }))
-
+    const history = previousMessages
+  .slice(-10)
+  .filter(
+    (message) =>
+      ['user', 'assistant'].includes(message.role) &&
+      typeof message.content === 'string' &&
+      message.content.length <= 2000
+  )
+  .map(({ role, content }) => ({
+    role,
+    content,
+  }))
     setMessages((prev) => [
       ...prev,
       { role: 'user', content: userQuestion },

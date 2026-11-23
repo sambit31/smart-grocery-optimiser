@@ -13,3 +13,8 @@ export const sendAIMessage = async (question, history = []) => {
 
   return unwrap(response);
 };
+
+export const getAIShoppingRecommendations = async () => {
+  const response = await api.post("/ai/recommendations");
+  return unwrap(response);
+};

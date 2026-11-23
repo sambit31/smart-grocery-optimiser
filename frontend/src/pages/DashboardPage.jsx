@@ -25,6 +25,7 @@ import StatCard from '../components/common/StatCard'
 import AIShoppingAssistant from '../components/dashboard/AIShoppingAssistant'
 import SpendingChart from '../components/charts/SpendingChart'
 import AIInsights from '../components/dashboard/AIInsights'
+import AIShoppingRecommendations from '../components/dashboard/AIShoppingRecommendations'
 import { useApi } from '../hooks/useApi'
 import { formatCurrency } from '../utils/formatCurrency'
 import { formatDate, formatQuantity } from '../utils/formatQuantity'
@@ -84,14 +85,10 @@ export default function DashboardPage() {
           </button>
         }
       />
-      <div className="mb-6">
-  <AIInsights />
+     <div className="mb-6 space-y-6">
+    <AIInsights />
+    <AIShoppingAssistant />
 </div>
-
-<div className="mb-6">
-  <AIShoppingAssistant />
-</div>
-
       {isNewUser && (
         <section className="card mb-6 p-5">
           <h2 className="font-semibold text-slate-900">Get started in four steps</h2>
@@ -108,8 +105,7 @@ export default function DashboardPage() {
           </ol>
         </section>
       )}
-
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={Users} label="Household size" value={`${data.household.family_size} members`} hint={`Shops ${data.household.shopping_frequency.toLowerCase()}`} tone="slate" />
         <StatCard icon={Wallet} label="Monthly budget" value={formatCurrency(data.monthly_budget)} />
         <StatCard icon={CircleDollarSign} label="Spent this month" value={formatCurrency(data.spent_this_month)} tone="blue" />
@@ -126,6 +122,10 @@ export default function DashboardPage() {
         <StatCard icon={Boxes} label="Plan status" value={data.latest_plan ? data.latest_plan.status : '—'} hint={data.latest_plan ? `${data.latest_plan.purchased_count}/${data.latest_plan.item_count} lines bought` : ''} tone="slate" />
       </div>
 
+        <div className="lg:col-span-3 gap-6 mt-6 ">
+          <AIShoppingRecommendations />
+        </div>
+
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <Panel title="Monthly spending (last 6 months)" action={<Link to="/app/reports" className="text-xs font-medium text-brand-700 hover:underline">Reports</Link>}>
@@ -138,6 +138,8 @@ export default function DashboardPage() {
             </div>
           </Panel>
         </div>
+
+        
 
         <Panel title="Upcoming recommended purchases" action={<Link to="/app/shopping-list" className="text-xs font-medium text-brand-700 hover:underline">Shopping list</Link>}>
           {data.upcoming_purchases.length ? (
@@ -193,6 +195,8 @@ export default function DashboardPage() {
           )}
         </Panel>
 
+        
+
         <Panel title="Low-stock items" action={<Link to="/app/inventory" className="text-xs font-medium text-brand-700 hover:underline">Inventory</Link>}>
           {data.low_stock_items.length ? (
             <ul className="divide-y divide-slate-100">
@@ -207,6 +211,8 @@ export default function DashboardPage() {
             <EmptyState compact icon={Boxes} title="Stock levels look fine" />
           )}
         </Panel>
+
+         
       </div>
     </>
   )

@@ -1,4 +1,5 @@
 import {
+  BrainCircuit,
   BarChart3,
   Boxes,
   Home,
@@ -36,6 +37,16 @@ export const NAV_GROUPS = [
       { to: '/app/shopping-list', label: 'Shopping List', icon: ListChecks },
     ],
   },
+  {
+  label: 'AI Tools',
+  items: [
+    {
+      to: '/app/ai-recommendations',
+      label: 'AI Shopping Recommendations',
+      icon: BrainCircuit,
+    },
+  ],
+},
   {
     label: 'Insights',
     items: [

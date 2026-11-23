@@ -10,6 +10,7 @@ import GroceryItemsPage from './pages/GroceryItemsPage'
 import HouseholdPage from './pages/HouseholdPage'
 import InventoryPage from './pages/InventoryPage'
 import LandingPage from './pages/LandingPage'
+import AIShoppingRecommendationsPage from './pages/AIShoppingRecommendationsPage'
 import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PredictionPage from './pages/PredictionPage'
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="predictions" element={<PredictionPage />} />
           <Route path="budget" element={<BudgetOptimisationPage />} />
           <Route path="shopping-list" element={<ShoppingListPage />} />
+          <Route path="ai-recommendations" element={<AIShoppingRecommendationsPage />}/>
           <Route path="reports" element={<ReportsPage />} />
           <Route path="feedback" element={<FeedbackPage />} />
         </Route>

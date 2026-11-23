@@ -1,6 +1,8 @@
 
-from flask import Blueprint, g, request
+from datetime import date
 
+from flask import Blueprint, current_app, g, request
+from app.models import Inventory, Recommendation
 from app.services import ai_service, report_service
 from app.utils.decorators import household_required
 from app.utils.responses import success
@@ -11,8 +13,11 @@ ai_bp = Blueprint("ai", __name__, url_prefix="/api/ai")
 def get_household_ai_data():
     summary = report_service.dashboard_summary(g.household)
     household = summary.get("household", {})
+    today = date.today()
 
     return {
+        "current_date": today.isoformat(),
+        "current_month": today.strftime("%B %Y"),
         "household_size": household.get("family_size"),
         "monthly_budget": summary["monthly_budget"],
         "spent_this_month": summary["spent_this_month"],
@@ -81,3 +86,47 @@ def chat():
     )
 
     return success({"answer": answer})
+
+
+@ai_bp.post("/recommendations")
+@household_required
+def shopping_recommendations():
+    recommendation = (
+        Recommendation.query
+        .filter_by(household_id=g.household.id)
+        .order_by(
+            Recommendation.created_at.desc(),
+            Recommendation.id.desc()
+        )
+        .first()
+    )
+
+    if recommendation is None:
+        return {
+            "success": False,
+            "message": "Generate a grocery plan before requesting AI recommendations."
+        }, 404
+
+    inventory_records = (
+        Inventory.query
+        .filter_by(household_id=g.household.id)
+        .all()
+    )
+
+    data = {
+     "currency": current_app.config["CURRENCY"],
+    "currency_symbol": current_app.config["CURRENCY_SYMBOL"],
+    "current_date": date.today().isoformat(),
+    "shopping_plan": recommendation.to_dict(),
+        "inventory": [
+            record.to_dict()
+            for record in inventory_records
+        ],
+    }
+
+    result = ai_service.generate_shopping_recommendations(data)
+
+    return success({
+        "recommendation_id": recommendation.id,
+        "recommendations": result
+    })
