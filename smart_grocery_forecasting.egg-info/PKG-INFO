@@ -1,6 +1,0 @@
-Metadata-Version: 2.4
-Name: smart-grocery-forecasting
-Version: 0.1.0
-Summary: Consumption forecasting algorithms for Smart Grocery Optimiser
-Requires-Python: >=3.10
-Requires-Dist: scikit-learn<2,>=1.5

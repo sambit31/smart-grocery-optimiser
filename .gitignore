@@ -16,3 +16,7 @@ node_modules/
 .env.*
 !.env.example
 ml.env
+# Generated build/package files
+frontend/dist/
+*.egg-info/
+build/
