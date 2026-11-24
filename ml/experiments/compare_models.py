@@ -1,8 +1,7 @@
 import os
 from pathlib import Path
-
+import pymysql
 import pandas as pd
-import mysql.connector
 from dotenv import load_dotenv
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
@@ -12,12 +11,12 @@ env_path = Path(__file__).resolve().parents[2] / "ml.env"
 load_dotenv(env_path)
 
 # Database connection
-conn = mysql.connector.connect(
+conn = pymysql.connect(
     host=os.getenv("DB_HOST"),
     port=int(os.getenv("DB_PORT", "3306")),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
-    database=os.getenv("DB_NAME")
+    database=os.getenv("DB_NAME"),
 )
 
 # Read actual consumption history
